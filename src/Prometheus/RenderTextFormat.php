@@ -21,7 +21,9 @@ class RenderTextFormat
         $lines = array();
 
         foreach ($metrics as $metric) {
-            $lines[] = "# HELP " . $metric->getName() . " {$metric->getHelp()}";
+            $lines[] = "# HELP " . $metric->getName()
+                . ' ' . $this->escapeLabelValue($metric->getHelp());
+
             $lines[] = "# TYPE " . $metric->getName() . " {$metric->getType()}";
             foreach ($metric->getSamples() as $sample) {
                 $lines[] = $this->renderSample($metric, $sample);
